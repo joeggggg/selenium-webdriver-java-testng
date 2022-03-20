@@ -14,20 +14,16 @@ import org.testng.annotations.Test;
 public class Topic_01_Check_Environment {
 
 	WebDriver driver;
+	
 	String projectPath = System.getProperty("user.dir");
 
 	@BeforeClass
 	public void beforeClass() {
-		//03192022 Setting system properties of geckodriver for firefox browser
-		
-//		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-//		03192022 Creating an object of geckodriver
-		driver = new FirefoxDriver();
-		
-		//03192022 Setting system properties of chromedriver for chrome browser
+
+// 03192022 : Setting system properties of chromedriver for chrome browser
 		System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
 		
-		//03192022 Creating an object of chromedriver
+// 03192022 : Creating an object of chromedriver
 		driver = new ChromeDriver();
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -54,6 +50,18 @@ public class Topic_01_Check_Environment {
 	public void TC_03_LoginFormDisplayed() {
 		// Login form displayed
 		Assert.assertTrue(driver.findElement(By.xpath("//form[@data-testid='royal_login_form']")).isDisplayed());
+	}
+	
+	@Test
+	public void TC_04_ValidateCurrentURL() {
+// 03192022 : Setting system properties of geckodriver for firefox browser
+		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+// 03192022 : Creating an object of geckodriver
+		WebDriver ffdriver = new FirefoxDriver();
+		ffdriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		ffdriver.manage().window().maximize();
+		ffdriver.get("https://chat.zalo.me/");	
+		ffdriver.quit();
 	}
 
 	@AfterClass
